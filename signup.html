@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Account | Devarakondi Silks</title>
+  <link rel="stylesheet" href="css/globals.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/components.css">
+  <style>
+    body { background: var(--color-primary); min-height: 100vh; display: flex; flex-direction: column; }
+    .auth-page {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--sp-10) var(--sp-4);
+      min-height: 100vh;
+      background: linear-gradient(135deg, #1a0505 0%, #2a0a0a 50%, #1c0808 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    .auth-page::before {
+      content: '';
+      position: absolute;
+      bottom: -20%; left: -10%;
+      width: 500px; height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(201,168,76,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .auth-card {
+      background: var(--color-white);
+      border-radius: var(--radius-xl);
+      padding: var(--sp-10);
+      width: 100%;
+      max-width: 480px;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.4);
+    }
+    .auth-logo { text-align: center; margin-bottom: var(--sp-6); }
+    .auth-logo-name { font-family: var(--font-heading); font-size: var(--fs-2xl); font-weight: 400; color: var(--color-primary); }
+    .auth-logo-tagline { font-size: var(--fs-xs); letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-gold); margin-top: 4px; }
+    .auth-ornament { width: 40px; height: 1px; background: var(--color-gold); margin: var(--sp-4) auto; }
+    .auth-title { font-family: var(--font-heading); font-size: var(--fs-2xl); font-weight: 400; color: var(--color-primary); text-align: center; margin-bottom: var(--sp-2); }
+    .auth-subtitle { font-size: var(--fs-sm); color: var(--color-text-muted); text-align: center; margin-bottom: var(--sp-6); }
+    .auth-form { display: flex; flex-direction: column; gap: var(--sp-4); }
+    .auth-row { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-4); }
+    @media (max-width: 480px) { .auth-row { grid-template-columns: 1fr; } }
+    .auth-field { display: flex; flex-direction: column; gap: var(--sp-2); }
+    .auth-label { font-size: var(--fs-xs); letter-spacing: 0.1em; text-transform: uppercase; font-weight: 600; color: var(--color-primary); }
+    .auth-input {
+      width: 100%;
+      box-sizing: border-box;
+      padding: var(--sp-3) var(--sp-4);
+      border: 1.5px solid var(--color-border);
+      border-radius: var(--radius-md);
+      font-size: var(--fs-base);
+      font-family: var(--font-body);
+      color: var(--color-text);
+      background: var(--color-white);
+      transition: border-color var(--transition-fast);
+      outline: none;
+    }
+    .auth-input:focus { border-color: var(--color-gold); }
+    .auth-input::placeholder { color: var(--color-text-muted); }
+    .auth-btn {
+      padding: var(--sp-4);
+      background: var(--color-primary);
+      color: var(--color-gold);
+      border: none;
+      border-radius: var(--radius-md);
+      font-family: var(--font-heading);
+      font-size: var(--fs-base);
+      letter-spacing: 0.08em;
+      cursor: pointer;
+      transition: background var(--transition-fast), transform var(--transition-fast);
+      margin-top: var(--sp-2);
+    }
+    .auth-btn:hover { background: #2a0a0a; transform: translateY(-1px); }
+    .auth-error {
+      background: #FEE2E2; border: 1px solid #FECACA; color: #991B1B;
+      padding: var(--sp-3) var(--sp-4); border-radius: var(--radius-sm);
+      font-size: var(--fs-sm); display: none;
+    }
+    .auth-success {
+      background: #D1FAE5; border: 1px solid #6EE7B7; color: #065F46;
+      padding: var(--sp-3) var(--sp-4); border-radius: var(--radius-sm);
+      font-size: var(--fs-sm); display: none;
+    }
+    .auth-link-row { text-align: center; font-size: var(--fs-sm); color: var(--color-text-muted); margin-top: var(--sp-4); }
+    .auth-link-row a { color: var(--color-gold); font-weight: 600; text-decoration: underline; }
+    .terms-note { font-size: 11px; color: var(--color-text-muted); text-align: center; line-height: 1.6; margin-top: var(--sp-2); }
+  </style>
+</head>
+<body>
+
+<div class="auth-page">
+  <div class="auth-card reveal fade-up">
+    <div class="auth-logo">
+      <div class="auth-logo-name">Devarakondi Silks</div>
+      <div class="auth-logo-tagline">Molakalmur · Est. Heritage</div>
+      <div class="auth-ornament"></div>
+    </div>
+
+    <h1 class="auth-title">Create Account</h1>
+    <p class="auth-subtitle">Join us to track orders and save your favourites</p>
+
+    <div class="auth-error" id="auth-error"></div>
+    <div class="auth-success" id="auth-success">Account created! Redirecting to login…</div>
+
+    <form class="auth-form" id="signup-form" novalidate>
+      <div class="auth-row">
+        <div class="auth-field">
+          <label class="auth-label" for="first-name">First Name</label>
+          <input class="auth-input" type="text" id="first-name" placeholder="Priya" required autocomplete="given-name">
+        </div>
+        <div class="auth-field">
+          <label class="auth-label" for="last-name">Last Name</label>
+          <input class="auth-input" type="text" id="last-name" placeholder="Sharma" required autocomplete="family-name">
+        </div>
+      </div>
+      <div class="auth-field">
+        <label class="auth-label" for="email">Email Address</label>
+        <input class="auth-input" type="email" id="email" placeholder="priya@example.com" required autocomplete="email">
+      </div>
+      <div class="auth-field">
+        <label class="auth-label" for="phone">Phone Number</label>
+        <input class="auth-input" type="tel" id="phone" placeholder="9876543210" autocomplete="tel">
+      </div>
+      <div class="auth-field">
+        <label class="auth-label" for="password">Password</label>
+        <input class="auth-input" type="password" id="password" placeholder="Min. 8 characters" required autocomplete="new-password" minlength="8">
+      </div>
+      <div class="auth-field">
+        <label class="auth-label" for="confirm-password">Confirm Password</label>
+        <input class="auth-input" type="password" id="confirm-password" placeholder="Re-enter password" required autocomplete="new-password">
+      </div>
+
+      <button type="submit" class="auth-btn" id="signup-btn">Create Account →</button>
+    </form>
+
+    <p class="terms-note">By signing up, you agree to our <a href="#" style="color:var(--color-gold)">Terms</a> and <a href="#" style="color:var(--color-gold)">Privacy Policy</a>.</p>
+
+    <div class="auth-link-row">
+      Already have an account? <a href="login.html">Sign In</a>
+    </div>
+    <div class="auth-link-row" style="margin-top:var(--sp-3)">
+      <a href="index.html" style="color:var(--color-text-muted);">← Back to Home</a>
+    </div>
+  </div>
+</div>
+
+<script src="js/main.js"></script>
+<script>
+document.getElementById('signup-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const btn = document.getElementById('signup-btn');
+  const errorEl = document.getElementById('auth-error');
+  const successEl = document.getElementById('auth-success');
+  errorEl.style.display = 'none';
+  successEl.style.display = 'none';
+
+  const firstName = document.getElementById('first-name').value.trim();
+  const lastName = document.getElementById('last-name').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const phone = document.getElementById('phone').value.trim();
+  const password = document.getElementById('password').value;
+  const confirmPassword = document.getElementById('confirm-password').value;
+
+  if (!firstName || !email || !password) {
+    errorEl.textContent = 'Please fill in all required fields.';
+    errorEl.style.display = 'block';
+    return;
+  }
+  if (password !== confirmPassword) {
+    errorEl.textContent = 'Passwords do not match.';
+    errorEl.style.display = 'block';
+    return;
+  }
+  if (password.length < 8) {
+    errorEl.textContent = 'Password must be at least 8 characters.';
+    errorEl.style.display = 'block';
+    return;
+  }
+
+  btn.textContent = 'Creating account…';
+  btn.disabled = true;
+
+  try {
+    const res = await fetch('http://localhost:8080/api/auth/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name: `${firstName} ${lastName}`, email, phone, password })
+    });
+    if (res.ok) {
+      successEl.style.display = 'block';
+      setTimeout(() => window.location.href = 'login.html', 1800);
+    } else {
+      let data = {};
+      try { data = await res.json(); } catch(e) {}
+      
+      if (res.status === 404) {
+          errorEl.textContent = 'Server endpoint not found. Did you restart the backend?';
+      } else {
+          errorEl.textContent = data.message || 'Registration failed. Email may already be in use.';
+      }
+      errorEl.style.display = 'block';
+    }
+  } catch (err) {
+    errorEl.textContent = 'Could not connect to server. Please ensure the backend is running.';
+    errorEl.style.display = 'block';
+  } finally {
+    btn.textContent = 'Create Account →';
+    btn.disabled = false;
+  }
+});
+</script>
+</body>
+</html>

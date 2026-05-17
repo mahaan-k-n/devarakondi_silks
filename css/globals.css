@@ -1,0 +1,342 @@
+/* =============================================
+   DEVARAKONDI SILKS — GLOBAL DESIGN SYSTEM
+   ============================================= */
+
+/* Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap');
+
+/* ── CSS Custom Properties ── */
+:root {
+  /* Colors */
+  --color-primary:    #1A0A00;
+  --color-gold:       #C9A84C;
+  --color-gold-light: #E8D5A3;
+  --color-gold-dark:  #9E7C2A;
+  --color-maroon:     #7A1C2E;
+  --color-maroon-dark:#5C1122;
+  --color-ivory:      #F5EFE0;
+  --color-ivory-dark: #EDE4CE;
+  --color-surface:    #FDFAF4;
+  --color-white:      #FFFFFF;
+  --color-black:      #0D0500;
+  --color-text:       #2C1810;
+  --color-text-muted: #7A6252;
+  --color-border:     #E8DEC8;
+  --color-whatsapp:   #25D366;
+
+  /* Typography */
+  --font-heading: 'Cormorant Garamond', Georgia, serif;
+  --font-body:    'Inter', -apple-system, sans-serif;
+
+  /* Font Sizes (fluid) */
+  --fs-xs:   0.75rem;
+  --fs-sm:   0.875rem;
+  --fs-base: 1rem;
+  --fs-md:   1.125rem;
+  --fs-lg:   1.375rem;
+  --fs-xl:   1.75rem;
+  --fs-2xl:  2.25rem;
+  --fs-3xl:  3rem;
+  --fs-4xl:  4rem;
+  --fs-hero: clamp(2.5rem, 6vw, 5rem);
+
+  /* Spacing */
+  --sp-1:  0.25rem;
+  --sp-2:  0.5rem;
+  --sp-3:  0.75rem;
+  --sp-4:  1rem;
+  --sp-5:  1.25rem;
+  --sp-6:  1.5rem;
+  --sp-8:  2rem;
+  --sp-10: 2.5rem;
+  --sp-12: 3rem;
+  --sp-16: 4rem;
+  --sp-20: 5rem;
+  --sp-24: 6rem;
+  --sp-32: 8rem;
+
+  /* Layout */
+  --container-max: 1280px;
+  --container-pad: clamp(1rem, 5vw, 3rem);
+
+  /* Radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-sm:  0 1px 3px rgba(26,10,0,0.08), 0 1px 2px rgba(26,10,0,0.06);
+  --shadow-md:  0 4px 16px rgba(26,10,0,0.10), 0 2px 6px rgba(26,10,0,0.06);
+  --shadow-lg:  0 12px 40px rgba(26,10,0,0.15), 0 4px 12px rgba(26,10,0,0.08);
+  --shadow-gold: 0 4px 24px rgba(201,168,76,0.25);
+
+  /* Transitions */
+  --transition-fast:   150ms ease;
+  --transition-base:   280ms ease;
+  --transition-slow:   450ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-spring: 380ms cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* Z-index layers */
+  --z-base:    1;
+  --z-header:  100;
+  --z-modal:   200;
+  --z-toast:   300;
+  --z-wa-btn:  150;
+}
+
+/* ── Reset ── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--fs-base);
+  color: var(--color-text);
+  background-color: var(--color-surface);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+img, video {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
+}
+
+input, select, textarea {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+/* ── Layout Utilities ── */
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--container-pad);
+}
+
+.section-pad {
+  padding-block: var(--sp-20);
+}
+
+.section-pad-lg {
+  padding-block: var(--sp-32);
+}
+
+/* ── Typography Utilities ── */
+h1, h2, h3, h4, h5 {
+  font-family: var(--font-heading);
+  font-weight: 500;
+  line-height: 1.15;
+  color: var(--color-primary);
+}
+
+.heading-hero {
+  font-size: var(--fs-hero);
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+}
+
+.heading-xl {
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+.heading-lg {
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  font-weight: 500;
+}
+
+.heading-md {
+  font-size: clamp(1.25rem, 2vw, 1.75rem);
+  font-weight: 500;
+}
+
+.heading-sm {
+  font-size: var(--fs-lg);
+  font-weight: 600;
+}
+
+.body-lg {
+  font-size: var(--fs-md);
+  line-height: 1.7;
+}
+
+.body-sm {
+  font-size: var(--fs-sm);
+}
+
+.caption {
+  font-size: var(--fs-xs);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+/* Color utilities */
+.text-gold    { color: var(--color-gold); }
+.text-maroon  { color: var(--color-maroon); }
+.text-ivory   { color: var(--color-ivory); }
+.text-muted   { color: var(--color-text-muted); }
+.text-primary { color: var(--color-primary); }
+.text-white   { color: var(--color-white); }
+.text-center  { text-align: center; }
+
+/* BG utilities */
+.bg-primary { background: var(--color-primary); }
+.bg-ivory   { background: var(--color-ivory); }
+.bg-surface { background: var(--color-surface); }
+.bg-maroon  { background: var(--color-maroon); }
+
+/* Flex/Grid utilities */
+.flex        { display: flex; }
+.flex-col    { flex-direction: column; }
+.items-center { align-items: center; }
+.justify-center { justify-content: center; }
+.justify-between { justify-content: space-between; }
+.gap-2 { gap: var(--sp-2); }
+.gap-4 { gap: var(--sp-4); }
+.gap-6 { gap: var(--sp-6); }
+.gap-8 { gap: var(--sp-8); }
+
+/* Price display */
+.price-original {
+  font-size: var(--fs-sm);
+  color: var(--color-text-muted);
+  text-decoration: line-through;
+}
+
+.price-current {
+  font-size: var(--fs-lg);
+  font-family: var(--font-heading);
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+.price-discount {
+  font-size: var(--fs-sm);
+  color: #2A7A3B;
+  font-weight: 500;
+}
+
+/* Dividers */
+.divider {
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(to right, var(--color-gold), var(--color-gold-light));
+  margin-block: var(--sp-6);
+}
+
+.divider-center {
+  margin-inline: auto;
+}
+
+/* Section headers */
+.section-header {
+  margin-bottom: var(--sp-12);
+}
+
+.section-header.centered {
+  text-align: center;
+}
+
+.section-header.centered .divider {
+  margin-inline: auto;
+}
+
+/* Overline text */
+.overline {
+  display: block;
+  font-size: var(--fs-xs);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  font-weight: 500;
+  margin-bottom: var(--sp-2);
+}
+
+/* Aspect ratios */
+.aspect-square    { aspect-ratio: 1; }
+.aspect-portrait  { aspect-ratio: 3/4; }
+.aspect-landscape { aspect-ratio: 16/9; }
+.aspect-card      { aspect-ratio: 4/5; }
+
+/* Object fit */
+.img-cover {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+}
+
+/* Overflow */
+.overflow-hidden { overflow: hidden; }
+.overflow-x-auto { overflow-x: auto; }
+
+/* Responsive grid helpers */
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--sp-6);
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--sp-6);
+}
+
+.grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--sp-6);
+}
+
+@media (max-width: 1024px) {
+  .grid-4 { grid-template-columns: repeat(2, 1fr); }
+  .grid-3 { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 640px) {
+  .grid-4 { grid-template-columns: repeat(2, 1fr); gap: var(--sp-4); }
+  .grid-3 { grid-template-columns: repeat(1, 1fr); }
+  .grid-2 { grid-template-columns: repeat(1, 1fr); }
+  .section-pad { padding-block: var(--sp-12); }
+  .section-pad-lg { padding-block: var(--sp-20); }
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--color-ivory); }
+::-webkit-scrollbar-thumb { background: var(--color-gold); border-radius: 3px; }

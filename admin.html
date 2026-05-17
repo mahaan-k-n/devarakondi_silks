@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Devarakondi Silks - Admin Dashboard</title>
+  <link rel="stylesheet" href="css/globals.css">
+  <style>
+    body { background: #f3f4f6; color: #111827; }
+    .admin-container { max-width: 1200px; margin: 40px auto; padding: 20px; }
+    
+    /* Auth View */
+    #auth-view { max-width: 400px; margin: 100px auto; background: white; padding: 40px; border-radius: 8px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
+    #auth-view input { width: 100%; padding: 10px; margin-bottom: 20px; border: 1px solid #d1d5db; border-radius: 4px; }
+    
+    /* Dashboard View */
+    #dashboard-view { display: none; }
+    .header-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+    .card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); margin-bottom: 30px; }
+    
+    table { width: 100%; border-collapse: collapse; text-align: left; }
+    th { padding: 12px; border-bottom: 2px solid #e5e7eb; color: #6b7280; font-size: 0.875rem; text-transform: uppercase; }
+    td { padding: 12px; border-bottom: 1px solid #e5e7eb; vertical-align: middle; }
+    
+    .btn { padding: 8px 16px; background: #C9A84C; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; }
+    .btn-danger { background: #ef4444; }
+    
+    .status-badge { padding: 4px 8px; border-radius: 99px; font-size: 0.75rem; font-weight: bold; }
+    .status-pending { background: #fef3c7; color: #92400e; }
+    .status-confirmed { background: #d1fae5; color: #065f46; }
+    
+    .nav-tabs { display: flex; gap: 10px; margin-bottom: 20px; }
+    .nav-tab { padding: 10px 20px; cursor: pointer; font-weight: bold; border-bottom: 2px solid transparent; }
+    .nav-tab.active { border-bottom: 2px solid #C9A84C; color: #C9A84C; }
+    
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+  </style>
+</head>
+<body>
+
+  <!-- AUTHENTICATION VIEW -->
+  <div id="auth-view" class="admin-container">
+    <h2 style="margin-bottom: 20px; text-align: center; color: #7A1C2E; font-family: var(--font-heading);">Admin Portal</h2>
+    <input type="password" id="secret-key" placeholder="Enter Admin Secret Key">
+    <button class="btn" style="width: 100%;" onclick="login()">Access Dashboard</button>
+    <p id="auth-error" style="color: red; text-align: center; margin-top: 10px; display: none;">Invalid Key</p>
+  </div>
+
+  <!-- DASHBOARD VIEW -->
+  <div id="dashboard-view" class="admin-container">
+    <div class="header-bar">
+      <h1 style="color: #7A1C2E; font-family: var(--font-heading);">Admin Dashboard</h1>
+      <button class="btn" style="background:#4b5563" onclick="logout()">Logout</button>
+    </div>
+
+    <div class="nav-tabs">
+      <div class="nav-tab active" onclick="switchTab('orders')">Orders</div>
+      <div class="nav-tab" onclick="switchTab('products')">Inventory</div>
+    </div>
+
+    <!-- ORDERS TAB -->
+    <div id="tab-orders" class="tab-content active card">
+      <h3 style="margin-bottom: 20px;">Recent Orders</h3>
+      <table id="orders-table">
+        <thead>
+          <tr>
+            <th>Order #</th>
+            <th>Date</th>
+            <th>Customer</th>
+            <th>Status</th>
+            <th>Payment</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Injected via JS -->
+        </tbody>
+      </table>
+    </div>
+
+    <!-- PRODUCTS TAB -->
+    <div id="tab-products" class="tab-content card">
+      <div style="display:flex; justify-content:space-between; margin-bottom: 20px;">
+        <h3>Product Inventory</h3>
+        <button class="btn" style="background:#059669;" onclick="document.getElementById('add-product-form').style.display='block'">+ Add Product</button>
+      </div>
+      
+      <!-- ADD PRODUCT FORM -->
+      <div id="add-product-form" style="display:none; background:#f9fafb; padding:15px; margin-bottom:20px; border:1px solid #e5e7eb; border-radius:4px;">
+        <h4 style="margin-bottom:10px;">Add New Product</h4>
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+          <input type="text" id="new-name" placeholder="Product Name (e.g. Red Molakalmur Silk)" style="padding:8px;">
+          <input type="number" id="new-price" placeholder="Price in ₹" style="padding:8px;">
+          <input type="number" id="new-stock" placeholder="Initial Stock" style="padding:8px;">
+          <select id="new-category" style="padding:8px;">
+            <option value="1">Molakalmur Silks</option>
+            <option value="2">Mysore Silks</option>
+            <option value="3">Soft Silks</option>
+            <option value="4">Banarasi Silks</option>
+            <option value="5">Daily Wear Silks</option>
+          </select>
+          <input type="text" id="new-image" placeholder="Image URL (e.g. images/saree1.jpg)" style="padding:8px; grid-column: span 2;">
+          <textarea id="new-desc" placeholder="Product Description..." style="padding:8px; grid-column: span 2; height: 60px;"></textarea>
+        </div>
+        <div style="margin-top:10px; display:flex; gap:10px;">
+          <button class="btn" onclick="submitNewProduct()">Save Product</button>
+          <button class="btn" style="background:#6b7280;" onclick="document.getElementById('add-product-form').style.display='none'">Cancel</button>
+        </div>
+      </div>
+
+      <table id="products-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Stock</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Injected via JS -->
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+  <script src="js/admin.js"></script>
+</body>
+</html>

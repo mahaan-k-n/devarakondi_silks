@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Your wishlist — saved silk sarees from Devarakondi Silks.">
+  <title>Wishlist | Devarakondi Silks</title>
+  <link rel="stylesheet" href="css/globals.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/pages.css">
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header header-transparent scrolled" id="site-header">
+  <div class="container header-inner">
+    <a href="index.html" class="logo">
+      <span class="logo-name">Devarakondi Silks</span>
+      <span class="logo-tagline">Molakalmur · Est. Heritage</span>
+    </a>
+    <nav class="nav-links" id="main-nav">
+      <a href="collections.html">All</a>
+      <a href="collections.html?filter=new">✨ New Arrivals</a>
+      <a href="collections.html?category=molakalmur-silks">Molakalmur Silks</a>
+      <a href="collections.html?category=kanchipuram">Kanchipuram</a>
+      <a href="collections.html?category=soft-silk">Soft Silk</a>
+      <a href="collections.html?category=bridal">Bridal</a>
+      <a href="collections.html?category=organza">Organza</a>
+      <a href="collections.html?category=cotton">Cotton</a>
+    </nav>
+    <div class="header-actions">
+      <a href="wishlist.html" class="wishlist-btn nav-active" title="Wishlist" id="wishlist-header-btn">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.8">
+          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+        </svg>
+        <span class="wishlist-count" id="wishlist-count">0</span>
+      </a>
+      <a href="checkout.html" class="cart-btn">
+        🛒 Cart <span class="cart-count" id="cart-count">0</span>
+      </a>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-nav-overlay" id="mobile-nav-overlay"></div>
+<nav class="mobile-nav" id="mobile-nav">
+  <button class="mobile-nav-close" id="mobile-nav-close">✕</button>
+  <a href="index.html">Home</a>
+  <a href="collections.html">All Collections</a>
+  <a href="collections.html?filter=new">✨ New Arrivals</a>
+  <a href="collections.html?category=molakalmur-silks">Molakalmur Silks</a>
+  <a href="collections.html?category=bridal">Bridal</a>
+  <a href="wishlist.html">♡ Wishlist</a>
+  <a href="checkout.html">🛒 Cart</a>
+  <hr style="border-color:rgba(255,255,255,0.1);margin:8px 0;">
+  <a href="#" data-wa="wholesale">Wholesale Enquiry</a>
+</nav>
+
+<!-- PAGE HERO -->
+<section style="background:var(--color-primary);padding:calc(72px + var(--sp-10)) 0 var(--sp-10);">
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="index.html" class="underline-animate">Home</a>
+      <span class="breadcrumb-sep">›</span>
+      <span class="breadcrumb-current">Wishlist</span>
+    </div>
+    <div style="margin-top:var(--sp-4)">
+      <span class="overline" style="color:var(--color-gold-light)">Saved Items</span>
+      <h1 class="heading-xl text-ivory">My Wishlist ♡</h1>
+    </div>
+  </div>
+</section>
+
+<!-- MAIN -->
+<main class="section-pad">
+  <div class="container">
+    <div id="wishlist-empty" style="display:none;text-align:center;padding:var(--sp-24) 0;">
+      <div style="font-size:3rem;margin-bottom:var(--sp-6)">♡</div>
+      <h2 class="heading-lg" style="margin-bottom:var(--sp-4)">Your wishlist is empty</h2>
+      <p class="body-md text-muted" style="margin-bottom:var(--sp-8)">Browse our collection and save sarees you love.</p>
+      <a href="collections.html" class="btn btn-primary btn-lg">Explore Collections</a>
+    </div>
+
+    <div id="wishlist-grid" class="products-grid" style="display:none;">
+      <!-- Injected by JS -->
+    </div>
+  </div>
+</main>
+
+<!-- WhatsApp Float -->
+<div class="wa-float">
+  <span class="wa-float-label">Chat with us</span>
+  <a href="#" class="wa-float-btn" target="_blank" rel="noopener noreferrer" title="Chat on WhatsApp">
+    <svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+      <path d="M11.998 0C5.372 0 0 5.372 0 12c0 2.115.554 4.1 1.523 5.824L.051 23.963l6.303-1.455A11.936 11.936 0 0 0 12 24c6.627 0 12-5.373 12-12 0-6.628-5.373-12-12.002-12zm.002 21.818a9.819 9.819 0 0 1-5.024-1.378l-.36-.214-3.742.864.944-3.629-.235-.374A9.789 9.789 0 0 1 2.18 12c0-5.418 4.4-9.818 9.82-9.818 5.42 0 9.818 4.4 9.818 9.818 0 5.419-4.398 9.818-9.818 9.818z"/>
+    </svg>
+  </a>
+</div>
+
+<!-- Footer -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo-name">Devarakondi Silks</div>
+        <div class="footer-logo-tagline">Molakalmur · Est. Heritage</div>
+        <p class="footer-about">Premium handwoven silk sarees direct from our traditional magga in Molakalmur, Karnataka.</p>
+      </div>
+      <div>
+        <h4 class="footer-col-title">Collections</h4>
+        <div class="footer-links">
+          <a href="collections.html?category=molakalmur-silks">Molakalmur Silks</a>
+          <a href="collections.html?category=kanchipuram">Kanchipuram</a>
+          <a href="collections.html?category=soft-silk">Soft Silk</a>
+          <a href="collections.html?category=bridal">Bridal</a>
+        </div>
+      </div>
+      <div>
+        <h4 class="footer-col-title">Help</h4>
+        <div class="footer-links">
+          <a href="#">Shipping Policy</a>
+          <a href="#">Return Policy</a>
+          <a href="#" data-wa="wholesale">Wholesale</a>
+        </div>
+      </div>
+      <div>
+        <h4 class="footer-col-title">Contact</h4>
+        <div class="footer-contact-item"><span>📍</span><span>Molakalmur, Karnataka</span></div>
+        <div class="footer-contact-item"><span>💬</span><span>WhatsApp only · Mon–Sat 9–7</span></div>
+        <a href="#" data-wa="general" class="btn btn-whatsapp btn-sm" style="margin-top:var(--sp-4)">💬 Chat Now</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 Devarakondi Silks. All rights reserved.</span>
+    </div>
+  </div>
+</footer>
+
+<div class="toast-container" id="toast-container"></div>
+<script src="js/main.js"></script>
+<script>
+const WL_KEY = 'ds_wishlist';
+
+function getWishlist() {
+  try { return JSON.parse(localStorage.getItem(WL_KEY)) || []; }
+  catch { return []; }
+}
+
+function removeFromWishlist(id) {
+  let wl = getWishlist().filter(w => w.id !== id);
+  localStorage.setItem(WL_KEY, JSON.stringify(wl));
+  renderWishlist();
+  updateWishlistBadge();
+  window.DS?.showToast('Removed from wishlist', 'info');
+}
+
+function updateWishlistBadge() {
+  const count = getWishlist().length;
+  document.querySelectorAll('#wishlist-count').forEach(el => {
+    el.textContent = count;
+    el.style.display = count > 0 ? 'flex' : 'none';
+  });
+}
+
+function renderWishlist() {
+  const wl = getWishlist();
+  const grid = document.getElementById('wishlist-grid');
+  const empty = document.getElementById('wishlist-empty');
+
+  if (!wl.length) {
+    grid.style.display = 'none';
+    empty.style.display = 'block';
+    return;
+  }
+
+  empty.style.display = 'none';
+  grid.style.display = 'grid';
+
+  grid.innerHTML = wl.map(item => `
+    <div class="product-card reveal fade-up" data-id="${item.id}">
+      <div class="product-card-img">
+        <img src="${item.image || 'images/hero-bg.jpg'}" alt="${item.name}" loading="lazy">
+        <button class="wishlist-card-btn wishlisted" data-remove="${item.id}" title="Remove from wishlist">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+          </svg>
+        </button>
+        <div class="product-card-quick">
+          <button class="btn btn-primary btn-sm add-to-cart-wl" data-id="${item.id}" style="flex:1">Add to Cart</button>
+          <a href="product.html?id=${item.id}" class="btn btn-outline btn-sm" style="flex:1">View</a>
+        </div>
+      </div>
+      <div class="product-card-body">
+        <span class="product-card-category">${item.category || ''}</span>
+        <h3 class="product-card-name">${item.name}</h3>
+        <div class="product-card-price">
+          <span class="price-current">₹${item.price.toLocaleString('en-IN')}</span>
+        </div>
+      </div>
+    </div>
+  `).join('');
+
+  // Bind remove buttons
+  grid.querySelectorAll('[data-remove]').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      removeFromWishlist(parseInt(btn.dataset.remove));
+    });
+  });
+
+  // Bind add to cart
+  grid.querySelectorAll('.add-to-cart-wl').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const id = parseInt(btn.dataset.id);
+      const item = getWishlist().find(w => w.id === id);
+      if (item) window.DS?.addToCart(item);
+    });
+  });
+
+  // Card click → product page
+  grid.querySelectorAll('.product-card').forEach(card => {
+    card.addEventListener('click', () => {
+      window.location.href = `product.html?id=${card.dataset.id}`;
+    });
+  });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  renderWishlist();
+  updateWishlistBadge();
+});
+</script>
+</body>
+</html>
