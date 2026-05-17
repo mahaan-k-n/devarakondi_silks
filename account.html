@@ -118,7 +118,7 @@
     document.getElementById('user-greeting').textContent = `Welcome back, ${user.name}!`;
 
     try {
-      const res = await fetch(`http://localhost:8080/api/orders/user/${user.email}`, {
+      const res = await fetch(`${window.DS_API_BASE || 'http://localhost:8080'}/api/orders/user/${user.email}`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }

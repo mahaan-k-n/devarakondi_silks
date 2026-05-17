@@ -176,7 +176,7 @@ async function handlePlaceOrder() {
   };
 
   try {
-    const res = await fetch('http://localhost:8080/api/orders', {
+    const res = await fetch(`${window.DS_API_BASE || 'http://localhost:8080'}/api/orders`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
@@ -201,7 +201,7 @@ async function handlePlaceOrder() {
                 console.log("Razorpay Payment ID:", response.razorpay_payment_id);
                 // Fire backend verify endpoint securely
                 try {
-                    const verifyRes = await fetch('http://localhost:8080/api/orders/verify-payment', {
+                    const verifyRes = await fetch(`${window.DS_API_BASE || 'http://localhost:8080'}/api/orders/verify-payment`, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({

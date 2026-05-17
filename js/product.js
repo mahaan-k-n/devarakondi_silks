@@ -6,7 +6,7 @@ async function getProductFromURL() {
   const params = new URLSearchParams(window.location.search);
   const id = params.get('id') || '1';
   try {
-    const res = await fetch(`http://localhost:8080/api/products/${id}`);
+    const res = await fetch(`${window.DS_API_BASE || 'http://localhost:8080'}/api/products/${id}`);
     if (!res.ok) throw new Error('Product not found');
     return await res.json();
   } catch (err) {
@@ -242,7 +242,7 @@ async function renderRecentlyViewed(currentId) {
   const rvProducts = [];
   for (const id of rvIds) {
       try {
-          const res = await fetch(`http://localhost:8080/api/products/${id}`);
+          const res = await fetch(`${window.DS_API_BASE || 'http://localhost:8080'}/api/products/${id}`);
           if (res.ok) rvProducts.push(await res.json());
       } catch(e) {}
   }

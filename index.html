@@ -570,8 +570,8 @@
 document.addEventListener('DOMContentLoaded', async () => {
   try {
     const [bestsellersRes, newArrivalsRes] = await Promise.all([
-      fetch('http://localhost:8080/api/products/bestsellers'),
-      fetch('http://localhost:8080/api/products/new-arrivals')
+      fetch(`${window.DS_API_BASE || 'http://localhost:8080'}/api/products/bestsellers`),
+      fetch(`${window.DS_API_BASE || 'http://localhost:8080'}/api/products/new-arrivals`)
     ]);
     
     if (bestsellersRes.ok) {

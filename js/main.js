@@ -2,6 +2,9 @@
 // DEVARAKONDI SILKS — MAIN JS
 // =============================================
 
+// Global API Base URL configuration
+window.DS_API_BASE = 'https://devarakondi-silks.onrender.com';
+
 // ── Scroll Reveal ──
 function initScrollReveal() {
   const els = document.querySelectorAll('.reveal');

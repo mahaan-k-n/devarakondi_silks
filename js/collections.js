@@ -33,7 +33,7 @@ async function fetchProducts() {
   if (state.priceMax < 100000) params.append('maxPrice', state.priceMax);
 
   try {
-    const res = await fetch(`http://localhost:8080/api/products?${params.toString()}`);
+    const res = await fetch(`${window.DS_API_BASE || 'http://localhost:8080'}/api/products?${params.toString()}`);
     if (!res.ok) throw new Error('API Error');
     return await res.json();
   } catch (err) {

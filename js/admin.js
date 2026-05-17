@@ -16,7 +16,7 @@ function logout() {
 
 async function verifyAndLoad(key) {
     try {
-        const res = await fetch('http://localhost:8080/api/admin/auth', {
+        const res = await fetch(`${window.DS_API_BASE || 'http://localhost:8080'}/api/admin/auth`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ secret: key })
@@ -51,7 +51,7 @@ function switchTab(tabId) {
 async function loadOrders() {
     const table = document.getElementById('orders-table').querySelector('tbody');
     try {
-        const res = await fetch('http://localhost:8080/api/admin/orders', {
+        const res = await fetch(`${window.DS_API_BASE || 'http://localhost:8080'}/api/admin/orders`, {
             headers: { 'X-Admin-Secret': adminSecret }
         });
         const orders = await res.json();
@@ -101,7 +101,7 @@ async function loadOrders() {
 async function loadProducts() {
     const table = document.getElementById('products-table').querySelector('tbody');
     try {
-        const res = await fetch('http://localhost:8080/api/products?size=100'); // public endpoint
+        const res = await fetch(`${window.DS_API_BASE || 'http://localhost:8080'}/api/products?size=100`); // public endpoint
         const data = await res.json();
         
         table.innerHTML = data.content.map(p => {
@@ -133,7 +133,7 @@ async function loadProducts() {
 async function updateStock(id) {
     const newStock = document.getElementById(`stock-${id}`).value;
     try {
-        const res = await fetch(`http://localhost:8080/api/admin/products/${id}/stock`, {
+        const res = await fetch(`${window.DS_API_BASE || 'http://localhost:8080'}/api/admin/products/${id}/stock`, {
             method: 'PUT',
             headers: { 
                 'Content-Type': 'application/json',
@@ -156,7 +156,7 @@ async function deleteProduct(id) {
     if (!confirm("Are you sure you want to delete this product?")) return;
     
     try {
-        const res = await fetch(`http://localhost:8080/api/admin/products/${id}`, {
+        const res = await fetch(`${window.DS_API_BASE || 'http://localhost:8080'}/api/admin/products/${id}`, {
             method: 'DELETE',
             headers: { 'X-Admin-Secret': adminSecret }
         });
@@ -194,7 +194,7 @@ async function submitNewProduct() {
     };
 
     try {
-        const res = await fetch('http://localhost:8080/api/admin/products', {
+        const res = await fetch(`${window.DS_API_BASE || 'http://localhost:8080'}/api/admin/products`, {
             method: 'POST',
             headers: { 
                 'Content-Type': 'application/json',
