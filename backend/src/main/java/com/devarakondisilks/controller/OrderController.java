@@ -39,9 +39,11 @@ public class OrderController {
         );
         
         if (isValid) {
-            Order order = orderService.getOrderByPaymentId(payload.get("razorpay_order_id"));
+            Order order = orderService.confirmOrderPayment(
+                    payload.get("razorpay_order_id"),
+                    payload.get("razorpay_payment_id")
+            );
             if (order != null) {
-                orderService.confirmOrderNotifications(order);
                 return ResponseEntity.ok(Map.of("status", "success"));
             } else {
                 return ResponseEntity.badRequest().body(Map.of("status", "failed", "message", "Order not found"));

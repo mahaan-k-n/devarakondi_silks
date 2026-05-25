@@ -80,19 +80,58 @@ public class OrderService {
         
         if ("COD".equalsIgnoreCase(request.getPaymentMethod())) {
             // Trigger emails asynchronously for COD immediately
-            confirmOrderNotifications(order);
+            confirmOrderNotifications(order.getId());
         }
         
         return response;
     }
 
-    public void confirmOrderNotifications(Order order) {
+    @Transactional
+    public Order confirmOrderPayment(String razorpayOrderId, String razorpayPaymentId) {
+        Order order = orderRepository.findByPaymentId(razorpayOrderId).orElse(null);
+        if (order != null) {
+            order.setStatus(Order.OrderStatus.CONFIRMED);
+            order.setPaymentId(razorpayPaymentId); // Update with the actual Razorpay Payment ID
+            orderRepository.save(order);
+            
+            // Trigger notifications asynchronously
+            confirmOrderNotifications(order.getId());
+            return order;
+        }
+        return null;
+    }
+
+    public void confirmOrderNotifications(Long orderId) {
         java.util.concurrent.CompletableFuture.runAsync(() -> {
+            try {
+                sendNotificationsForOrder(orderId);
+            } catch (Exception e) {
+                System.err.println("Error in async notifications: " + e.getMessage());
+                e.printStackTrace();
+            }
+        });
+    }
+
+    @Transactional(readOnly = true)
+    public void sendNotificationsForOrder(Long orderId) {
+        Order order = orderRepository.findById(orderId).orElse(null);
+        if (order != null) {
+            // Eagerly load lazy associations within the active transactional session
+            order.getItems().size();
+            order.getItems().forEach(item -> {
+                if (item.getProduct() != null) {
+                    item.getProduct().getName();
+                }
+            });
+            
+            // Dispatch notifications safely
             emailService.sendNewOrderNotificationToOwner(order);
             emailService.sendOrderConfirmationToCustomer(order);
             whatsappService.sendOrderNotificationToOwner(order);
             whatsappService.sendOrderConfirmationToCustomer(order);
-        });
+        } else {
+            System.err.println("Order not found for async notifications: ID " + orderId);
+        }
     }
 
     @Transactional(readOnly = true)
