@@ -31,8 +31,9 @@ public class WhatsappService {
     }
 
     public void sendOrderNotificationToOwner(Order order) {
+        System.out.println("DEBUG: sendOrderNotificationToOwner (WhatsApp) entering... Order: " + order.getOrderNumber());
         if (accountSid.equals("YOUR_TWILIO_SID_HERE")) {
-            System.out.println("Twilio not configured. Skipping WhatsApp notification.");
+            System.out.println("DEBUG: Twilio SID is default/unconfigured. Skipping owner WhatsApp notification.");
             return;
         }
 
@@ -64,7 +65,9 @@ public class WhatsappService {
     }
 
     public void sendOrderConfirmationToCustomer(Order order) {
+        System.out.println("DEBUG: sendOrderConfirmationToCustomer (WhatsApp) entering... Order: " + order.getOrderNumber() + ", Phone: " + order.getPhone());
         if (accountSid.equals("YOUR_TWILIO_SID_HERE") || order.getPhone() == null || order.getPhone().trim().isEmpty()) {
+            System.out.println("DEBUG: Skipping customer WhatsApp (Twilio not configured or phone number is empty).");
             return;
         }
 

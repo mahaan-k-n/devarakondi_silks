@@ -80,7 +80,7 @@ public class OrderService {
         
         if ("COD".equalsIgnoreCase(request.getPaymentMethod())) {
             // Trigger emails asynchronously for COD immediately
-            confirmOrderNotifications(order.getId());
+            triggerNotificationsAfterCommit(order.getId());
         }
         
         return response;
@@ -94,11 +94,26 @@ public class OrderService {
             order.setPaymentId(razorpayPaymentId); // Update with the actual Razorpay Payment ID
             orderRepository.save(order);
             
-            // Trigger notifications asynchronously
-            confirmOrderNotifications(order.getId());
+            // Trigger notifications asynchronously after transaction commits
+            triggerNotificationsAfterCommit(order.getId());
             return order;
         }
         return null;
+    }
+
+    private void triggerNotificationsAfterCommit(Long orderId) {
+        if (org.springframework.transaction.support.TransactionSynchronizationManager.isActualTransactionActive()) {
+            org.springframework.transaction.support.TransactionSynchronizationManager.registerSynchronization(
+                new org.springframework.transaction.support.TransactionSynchronization() {
+                    @Override
+                    public void afterCommit() {
+                        confirmOrderNotifications(orderId);
+                    }
+                }
+            );
+        } else {
+            confirmOrderNotifications(orderId);
+        }
     }
 
     public void confirmOrderNotifications(Long orderId) {

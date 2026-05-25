@@ -19,7 +19,9 @@ public class EmailService {
     private String ownerEmail;
 
     public void sendOrderConfirmationToCustomer(Order order) {
+        System.out.println("DEBUG: sendOrderConfirmationToCustomer entering... Order: " + order.getOrderNumber() + ", Customer Email: " + order.getEmail());
         if (order.getEmail() == null || order.getEmail().trim().isEmpty()) {
+            System.out.println("DEBUG: Customer email is null or empty. Skipping email dispatch.");
             return;
         }
         
@@ -88,6 +90,7 @@ public class EmailService {
     }
 
     public void sendNewOrderNotificationToOwner(Order order) {
+        System.out.println("DEBUG: sendNewOrderNotificationToOwner entering... Order: " + order.getOrderNumber() + ", Owner Email: " + ownerEmail);
         try {
             MimeMessage message = mailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
