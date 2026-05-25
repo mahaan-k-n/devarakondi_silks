@@ -112,18 +112,9 @@ public class OrderService {
         });
     }
 
-    @Transactional(readOnly = true)
     public void sendNotificationsForOrder(Long orderId) {
-        Order order = orderRepository.findById(orderId).orElse(null);
+        Order order = orderRepository.findByIdWithItemsAndProduct(orderId).orElse(null);
         if (order != null) {
-            // Eagerly load lazy associations within the active transactional session
-            order.getItems().size();
-            order.getItems().forEach(item -> {
-                if (item.getProduct() != null) {
-                    item.getProduct().getName();
-                }
-            });
-            
             // Dispatch notifications safely
             emailService.sendNewOrderNotificationToOwner(order);
             emailService.sendOrderConfirmationToCustomer(order);
